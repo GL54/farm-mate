@@ -1,0 +1,27 @@
+const express =  require('express')
+const ejs     =  require('ejs')
+const layouts =  require('express-ejs-layouts')
+const signup = require('./route/signup')
+const login   = require('./route/login')
+const dashboard = require('./route/dashboard')
+const app     = express()
+const customer = require('./route/customer')
+const language = require('./route/language')
+const select = require('./route/select')
+
+app.use(express.static('public'))
+app.use(layouts)
+app.use(express.urlencoded({limit:'10mb',extended:false }))
+
+app.set('view engine','ejs')
+app.set('views',__dirname+'/views')
+app.set('layout','layout')
+
+app.use('/',select)
+app.use('/',language)
+app.use('/',login)
+app.use('/',signup)
+app.use('/',dashboard)
+app.use('/',customer)
+
+app.listen(1000,()=>console.log('app_started'))
